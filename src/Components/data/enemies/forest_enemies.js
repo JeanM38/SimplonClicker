@@ -1,12 +1,15 @@
 /* FOREST */
-import chaman from '../../ressources/images/forest/chaman.png';
-import executioner from '../../ressources/images/forest/executioner.png';
-import great_spirit from '../../ressources/images/forest/great-spirit.png';
-import knight from '../../ressources/images/forest/knight.png';
-import spirit from '../../ressources/images/forest/spirit-of-the-forest.png';
-import ancient from '../../ressources/images/forest/the-ancient.png';
+import chaman from '../../../ressources/images/forest/chaman.png';
+import executioner from '../../../ressources/images/forest/executioner.png';
+import great_spirit from '../../../ressources/images/forest/great-spirit.png';
+import knight from '../../../ressources/images/forest/knight.png';
+import spirit from '../../../ressources/images/forest/spirit-of-the-forest.png';
+import ancient from '../../../ressources/images/forest/the-ancient.png';
+import mushroomSoldier from '../../../ressources/images/bosses/mushroom-soldier.png';
+import raznak from '../../../ressources/images/bosses/raznak-the-great.png';
 
-export const enemy = [
+export const forest_enemies = [
+    /* Standard enemies */
     {
         name: "Chaman",
         category: 'standard',
@@ -49,18 +52,20 @@ export const enemy = [
         hp: 30,
         reward: 20
     },
+    /* Mid-boss */
     {
-        name: "midBoss",
+        name: "Mushroom Man",
         category: 'midBoss',
-        img: 'midBoss.png',
+        img: mushroomSoldier,
         hp: 100,
         reward: 100
     },
+    /* Main boss */
     {
-        name: "boss",
+        name: "Raznak the great",
         category: 'boss',
-        img: 'boss.png',
-        hp: 200,
+        img: raznak,
+        hp: 300,
         reward: 200
     }
 ]

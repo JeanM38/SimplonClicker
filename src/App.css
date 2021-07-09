@@ -21,6 +21,11 @@ h2, h3 {
   margin: 0;
   padding: 0;
 }
+
+strong {
+  color: gold;
+}
+
 /* App */
 .App {
   display: flex;

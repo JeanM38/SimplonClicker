@@ -2,7 +2,7 @@ import './App.css';
 import React, { Component } from 'react';
 import { Player } from './Components/Player';
 import { Enemy } from './Components/Enemy';
-import { createLevel, formatItemPrice, getRandomArbitrary, formatNumber } from './utils/functions';
+import { createLevel, formatItemPrice, createParticle } from './utils/functions';
 
 export class App extends Component {
   constructor (props) {
@@ -10,19 +10,6 @@ export class App extends Component {
     this.addLevel = this.addLevel.bind(this)
     this.damageEnemy = this.damageEnemy.bind(this)
     this.buyItem = this.buyItem.bind(this)
-    this.createParticle = this.createParticle.bind(this)
-    this.state = {
-      level:          null,
-      score:          null,
-      items:          null,
-      damagePerSec:   null,
-      damagePerClic:  null,
-      enemy:          null,
-      hpEnemy:        null,
-      interval:       null,
-      criticalChance: null
-    }
-    this.dataIsReturned = false
   }
 
   addLevel () {
@@ -33,27 +20,7 @@ export class App extends Component {
     });
   }
 
-  createParticle (elem, mode) {
-    const particle = document.createElement('p');
-    let val = document.createTextNode(formatNumber(elem));
-    if (mode === "critical") {
-      particle.classList = 'particle critical';
-    } else if (mode === "dmg") {
-      particle.classList = 'particle';
-    } else {
-      particle.classList = 'particle treasure';
-      val = document.createTextNode(`+${formatNumber(elem)} Gold`);
-    }
-
-    particle.appendChild(val);
-    particle.style.top = `${getRandomArbitrary(20, 30)}%`;
-    particle.style.left = `${getRandomArbitrary(30, 70)}%`;
-    document.querySelector('.enemy-wrap').appendChild(particle);
-    setTimeout(() => {
-      particle.remove();
-    }, 3000)
-  }
-
+  /* Damage on enemy on clic or DPS */
   damageEnemy (method) {
     const enemyImg = document.querySelector('.enemy img');
 
@@ -65,13 +32,13 @@ export class App extends Component {
         enemyImg.animate({
           transform: "scale(1.15)"
         }, 50);
-        this.createParticle(this.state.damagePerClic * criticalRoll, "critical");
+        createParticle(this.state.damagePerClic * criticalRoll, "critical");
       } else {
         criticalRoll = 1;
         enemyImg.animate({
           transform: "scale(1.05)"
         }, 50);
-        this.createParticle(this.state.damagePerClic * criticalRoll, "dmg");
+        createParticle(this.state.damagePerClic * criticalRoll, "dmg");
       }
 
       const damage = this.state.damagePerClic * criticalRoll;
@@ -89,29 +56,12 @@ export class App extends Component {
       this.setState({
         score: newsScore
       })
-      this.createParticle(this.state.enemy.reward,'particle treasure')
+      createParticle(this.state.enemy.reward,'particle treasure')
       this.addLevel();
     }
   }
 
-  /* Init app */
-  componentDidMount () {
-    this.setState({
-      level:            1,
-      score:            0,
-      items:            [],
-      damagePerSec:     0,
-      damagePerClic:    1,
-      enemy:            createLevel(1),
-      hpEnemy:          createLevel(1).hp,
-      criticalChance:   10,
-      interval: setInterval(() => {
-        this.damageEnemy("interval");
-      }, 1000)
-    });
-    this.dataIsReturned = true;
-  }
-
+  /* When user buys an item */
   buyItem (item) {
     if (item.price <= this.state.score) {      
       if (item.category === "clicDamage") {
@@ -132,13 +82,30 @@ export class App extends Component {
     }
   }
 
+  /* Init app */
+  componentDidMount () {
+    this.setState({
+      level:            1,
+      score:            0,
+      damagePerSec:     0,
+      damagePerClic:    1,
+      enemy:            createLevel(1),
+      hpEnemy:          createLevel(1).hp,
+      criticalChance:   10,
+      interval: setInterval(() => {
+        this.damageEnemy("interval");
+      }, 1000)
+    });
+    this.dataIsReturned = true;
+  }
+
   render () {
     if (this.dataIsReturned) {
       return (
         <div className="App">
+          <div id="tooltip"></div>
           <Player 
             level={this.state.level} 
-            items={this.state.items}
             score={this.state.score} 
             buyItem={this.buyItem}
           />

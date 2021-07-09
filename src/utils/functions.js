@@ -1,6 +1,8 @@
 import { environment } from '../Components/data/environment';
 import { enemyHpMultiply, itemPriceMultiply, rewardMultiply } from './constants';
-import { enemy } from '../Components/data/enemy';
+import { forest_enemies } from '../Components/data/enemies/forest_enemies';
+import { cave_enemies } from '../Components/data/enemies/cave_enemies';
+import { hell_enemies } from '../Components/data/enemies/hell_enemies';
 
 /* Set timer or not */
 export const updateCategoryEnemy = (enemy) => {
@@ -27,10 +29,20 @@ export const updateEnemy = (enemy, lvl) => {
 export const createLevel = (level) => {
     /* Get current player level */
     const lvl = level;
+    let enemy;
 
     /* Get environment of the level */
     const envIndex = parseInt(lvl / 50 - 0.01);
     const env = environment[envIndex];
+
+    /* Align enemies to environment */
+    if (env.name === 'Forest') {
+      enemy = forest_enemies
+    } else if (env.name === 'Cave') {
+      enemy = cave_enemies
+    } else if (env.name === 'Hell') {
+      enemy = hell_enemies
+    }
 
     /* Construct enemy */
     const boss = updateCategoryEnemy(enemy[7]);
@@ -72,14 +84,29 @@ export const formatNumber = (num) => {
     return item ? (num / item.value).toFixed(2).replace(rx, "$1") + item.symbol : "0";
 }
 
-/* Append item tooltip */
-export const appendItemStats = (e, item) => {
-    if (e.target.closest('.item') && document.getElementById('#tooltip') === null) {
-        const elem = document.createElement
-    }
-}
-
 /* Random interval */
 export const getRandomArbitrary = (min, max) => {
     return Math.random() * (max - min) + min;
-  }
+}
+
+/* Create particle */
+export const createParticle = (elem, mode) => {
+    const particle = document.createElement('p');
+    let val = document.createTextNode(formatNumber(elem));
+    if (mode === "critical") {
+      particle.classList = 'particle critical';
+    } else if (mode === "dmg") {
+      particle.classList = 'particle';
+    } else {
+      particle.classList = 'particle treasure';
+      val = document.createTextNode(`+${formatNumber(elem)} Gold`);
+    }
+
+    particle.appendChild(val);
+    particle.style.top = `${getRandomArbitrary(20, 30)}%`;
+    particle.style.left = `${getRandomArbitrary(30, 70)}%`;
+    document.querySelector('.enemy-wrap').appendChild(particle);
+    setTimeout(() => {
+      particle.remove();
+    }, 3000)
+}

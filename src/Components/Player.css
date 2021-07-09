@@ -76,8 +76,45 @@
     height: calc(100% - 10px);
     min-width: 80px;
     font-family: 'Planes_ValMore', Courier, monospace;
+    background-color: gold;
+    border: 2px solid #0A0A0A;
+    border-radius: 5px;
+    outline: none;
 }
 
 .player .item p {
     margin: 5px 0 0 0;
+}
+
+.player .itmImg {
+    position: relative;
+}
+
+.itemTooltip {
+    z-index: 10;
+    background-color: #4a5666;
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    border-radius: 5px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease-in;
+    overflow: visible;
+}
+
+.itemTooltip::after {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    content: '';
+    height: 30px;
+    width: 30px;
+    transform: rotate(45deg);
+    background-color: #4a5666;
+}
+
+.itemTooltip.show {
+    opacity: 1;
+    transform: scale(1);
 }

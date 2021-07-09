@@ -1,4 +1,4 @@
-export const upgrade = [
+export const upgrades = [
     {
         category: 'clicDamage',
         amount: 5,
