@@ -26,8 +26,11 @@ export class App extends Component {
     const enemyImg = document.querySelector('.enemy img');
 
     if (method === "clic") {
+      /* Clic damage */
       let criticalRoll = Math.floor(Math.random() * this.state.criticalChance) + 1;
+      let rewardRoll = Math.floor(Math.random() * this.state.rewardChance) + 1;
 
+      /* Critical damage? */
       if (criticalRoll === this.state.criticalChance) {
         criticalRoll = 2;
         enemyImg.animate({
@@ -42,15 +45,23 @@ export class App extends Component {
         createParticle(this.state.damagePerClic * criticalRoll, "dmg");
       }
 
+      /* Bonus reward? */
+      if (rewardRoll === this.state.rewardChance) {
+        this.state.score += Math.round(this.state.enemy.reward * 0.05);
+        createParticle(Math.round(this.state.enemy.reward * 0.05), "treasure");
+      }
+
       const damage = this.state.damagePerClic * criticalRoll;
       this.state.enemy.hp -= damage;  
     } else if (method === "interval") {
+      /* DPS */
       this.state.enemy.hp -= this.state.damagePerSec;
     }
 
     if (this.state.enemy.hp > 0) {
       this.setState({
-        enemy: this.state.enemy
+        enemy: this.state.enemy,
+        score: this.state.score
       })
     } else {
       const newsScore = this.state.score + this.state.enemy.reward;
@@ -111,10 +122,11 @@ export class App extends Component {
       score:            0,
       timer:            15,
       damagePerSec:     0,
-      damagePerClic:    10000,
+      damagePerClic:    1,
       enemy:            createLevel(1),
       hpEnemy:          createLevel(1).hp,
       criticalChance:   10,
+      rewardChance:     10,
       interval: setInterval(() => {
         this.damageEnemy("interval");
       }, 1000),
