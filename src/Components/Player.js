@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { items } from './data/items';
 import { Item } from './Item';
 import gold from '../ressources/images/gold.png'
 import { formatNumber } from '../utils/functions';
@@ -18,7 +17,7 @@ export class Player extends Component {
           <h2>{formatNumber(this.props.score)}</h2>
         </div>
         <div className="playerItems">
-          {items.map((item, index) => {     
+          {this.props.items.map((item, index) => {     
             return (
               <Item item={item} key={index} score={this.props.score} buyItem={this.props.buyItem}/>
             ) 

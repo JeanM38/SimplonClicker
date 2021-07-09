@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { formatNumber, appendTooltip } from '../utils/functions';
+import { formatNumber } from '../utils/functions';
 
 export class Item extends Component {
     constructor (props) {
