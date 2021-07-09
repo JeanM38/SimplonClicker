@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { formatNumber } from '../utils/functions';
 import './Enemy.css'
 
-export class Enemy extends React.Component {
+export class Enemy extends Component {
   constructor (props) {
     super(props)
   }
