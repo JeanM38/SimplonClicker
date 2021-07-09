@@ -21,7 +21,8 @@ export class App extends Component {
     this.setState({
       level:    ++this.state.level,
       enemy:    createLevel(this.state.level),
-      hpEnemy:  createLevel(this.state.level).hp
+      hpEnemy:  createLevel(this.state.level).hp,
+      timer:    15
     });
   }
 

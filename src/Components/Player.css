@@ -26,12 +26,8 @@
 }
 
 @media (max-width: 540px) {
-    .player .playerHeader {
-        display: none;
-    }
-
     .player .playerItems {
-        margin-top: 22px!important;
+        margin-top: 70px!important;
     }
 }
 
