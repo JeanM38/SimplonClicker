@@ -1,0 +1,33 @@
+/* Fonts */
+@font-face {
+  font-family: "Planes_ValMore";
+  src: url("./ressources/font/Planes_ValMore.ttf");
+}
+
+/* Reset */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0A0A0A;
+  font-family: 'Planes_ValMore', Courier, monospace;
+  cursor: url('./ressources/images/cursor.cur'), auto !important;
+}
+
+* {
+  user-select: none;
+}
+
+h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+/* App */
+.App {
+  display: flex;
+}
+
+@media (max-width: 540px) {
+  .App {
+    flex-direction: column-reverse;
+  }
+}

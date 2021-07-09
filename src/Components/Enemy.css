@@ -1,0 +1,141 @@
+/* Health bar */
+.enemy-wrap {
+  z-index: 2;
+  position: relative;
+}
+
+progress {
+    -webkit-appearance: none;
+    height: 35px;
+  }
+  
+  ::-webkit-progress-bar {
+    background-color: #fff;
+    border: none;
+    outline: none;
+    height: 25px;
+  }
+  
+  ::-webkit-progress-value {
+    background-color: red;
+  }
+  
+  .enemy-wrap, 
+  .player
+  {
+    min-width: 50%;
+  }
+  
+  /* Background */
+  .img-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    overflow: hidden;
+  }
+  
+  .img-wrap img:not(.enemy img) {
+    height: 500px;
+    width: auto;
+  }
+  
+  /* Statistiques */
+  .img-wrap .stats {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    height: 460px;
+    width: 100%;
+  }
+  
+  .img-wrap .stats h2 {
+    color: #fff;
+    text-align: center;
+    margin-top: 5px;
+  }
+  
+  .img-wrap .sign {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    right: 0;
+    min-width: 200px;
+    height: 40px;
+    background-color: #000;
+    border-top-left-radius: 5px;
+    color: #fff;
+  }
+  
+  /* Enemy */
+  .img-wrap .enemy {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  
+  .img-wrap .enemy h2 {
+    margin-bottom: 8px;
+  }
+  
+  .img-wrap .enemy button {
+    cursor: url('../ressources/images/cursor.cur'), auto !important;
+    background: none;
+    border: none;
+    outline: none;
+  }
+  
+  .img-wrap .enemy img {
+    height: 150px;
+    width: 150px;
+  }
+
+  .img-wrap .damagePerSec {
+    margin-top: 10px;
+  }
+  
+
+  
+/* Particles */
+.particle {
+  position: absolute;
+  z-index: 3;
+  opacity: 0;
+  color: gold;
+  font-size: 24px;
+  animation: float 0.5s ease-in-out forwards; 
+}
+
+.particle.critical {
+  font-size: 36px;
+  color: red;
+  animation: float 1s ease-in-out forwards; 
+}
+
+.particle.treasure {
+  font-size: 42px;
+  color: green;
+  animation: float 3s ease-in-out forwards;
+}
+
+
+@keyframes float {
+  0% {
+    opacity: 0;
+  } 25% {
+    opacity: 1;
+    top: +10px;
+  } 50% {
+    opacity: 1;
+  } 100% {
+    opacity: 0;
+  }
+}

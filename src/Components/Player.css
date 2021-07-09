@@ -1,0 +1,83 @@
+.player {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.player .playerHeader {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 68px;
+    padding-left: 28px;
+    width: 100%;
+    background-color: #0A0A0A;
+    z-index: 1;
+    color: #fff;
+}
+
+.player .playerHeader img {
+    height: 32px;
+}
+
+.player .playerHeader h2 {
+    margin-left: 10px;
+}
+
+@media (max-width: 540px) {
+    .player .playerHeader {
+        display: none;
+    }
+
+    .player .playerItems {
+        margin-top: 22px!important;
+    }
+}
+
+.player::-webkit-scrollbar {
+    width: 0!important;
+}
+
+.player .playerItems {
+    margin-top: 68px;
+    z-index: 0;
+}
+
+.player .item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 22px;
+    background-color: #202731;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.player .item .itemBody {
+    width: 100%;
+}
+
+.player .item img {
+    height: 32px;
+    margin: 20px;
+}
+.player .item .itemBuy {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    height: 100%;
+    margin: 5px;
+}
+
+.player .item .itemBuy button {
+    height: calc(100% - 10px);
+    min-width: 80px;
+    font-family: 'Planes_ValMore', Courier, monospace;
+}
+
+.player .item p {
+    margin: 5px 0 0 0;
+}
