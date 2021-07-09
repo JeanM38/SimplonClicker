@@ -10,7 +10,7 @@ export class Enemy extends Component {
   render() {
     let timer;
     if (this.props.enemy.timer) {
-      timer = <div className="timer">Timer</div>
+      timer = <h2 className="timer">Time remaining : {this.props.timer}</h2>
     }
 
     return (
@@ -19,6 +19,7 @@ export class Enemy extends Component {
           <img src={this.props.enemy.env.src} />
           <div className="stats">
             <h2>{this.props.enemy.env.name} - Lvl {this.props.enemy.lvl}</h2>
+            { timer }
             <div className="enemy">
             <h3 className="damagePerSec">{this.props.damagePerSec} DPS</h3>
               <button onClick={() => this.props.damageEnemy('clic')}>

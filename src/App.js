@@ -10,6 +10,7 @@ export class App extends Component {
     this.addLevel = this.addLevel.bind(this)
     this.damageEnemy = this.damageEnemy.bind(this)
     this.buyItem = this.buyItem.bind(this)
+    this.timer = this.timer.bind(this)
   }
 
   addLevel () {
@@ -82,18 +83,43 @@ export class App extends Component {
     }
   }
 
+  /* Timer */
+  timer (time) {
+    let timer;
+    if (this.state.timer >= 1) {
+      if (this.state.enemy.category === "midBoss" || this.state.enemy.category === "boss") {
+        this.setState({
+          timer: --this.state.timer
+        })
+      } else {
+        clearInterval(timer);
+      }
+    } else {
+      this.setState({
+        timer: 15,
+        level: --this.state.level,
+        enemy: createLevel(this.state.level),
+        hpEnemy: createLevel(this.state.level).hp
+      });
+    }
+  }
+
   /* Init app */
   componentDidMount () {
     this.setState({
       level:            1,
       score:            0,
+      timer:            15,
       damagePerSec:     0,
-      damagePerClic:    1,
+      damagePerClic:    10000,
       enemy:            createLevel(1),
       hpEnemy:          createLevel(1).hp,
       criticalChance:   10,
       interval: setInterval(() => {
         this.damageEnemy("interval");
+      }, 1000),
+      timerInterval: setInterval(() => {
+        this.timer(15);
       }, 1000)
     });
     this.dataIsReturned = true;
@@ -111,6 +137,7 @@ export class App extends Component {
           />
           <Enemy 
             enemy={this.state.enemy} 
+            timer={this.state.timer}
             score={this.state.score}
             damageEnemy={this.damageEnemy}
             damagePerSec={this.state.damagePerSec}
